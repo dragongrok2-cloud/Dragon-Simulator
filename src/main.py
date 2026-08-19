@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 """
 Dragon Simulator
-Текстовый симулятор жизни могучего дракона.
-Летай, дыши огнём, охоться и исследуй мир!
+Текстовый симулятор жизни доброго дракона с седлом.
+Летай, дыши огнём, охоться и исследуй мир вместе с наездником!
 """
 
 from dragon import Dragon
 
 def main():
-    print("=" * 55)
+    print("=" * 60)
     print("🐉🔥  Добро пожаловать в Dragon Simulator  🔥🐉")
-    print("=" * 55)
+    print("   (Добрый дракон с удобным седлом ждёт тебя!)")
+    print("=" * 60)
     print()
 
     name = input("Как зовут твоего дракона? → ").strip()
@@ -18,21 +19,28 @@ def main():
         name = "Штормкрыл"
 
     dragon = Dragon(name)
-    print(f"\n{name} расправляет огромные крылья...")
-    print("Мир лежит у твоих лап. Время летать!\n")
+    print(f"\n{name} расправляет огромные крылья и мягко улыбается...")
+    print("Мир лежит у твоих лап. Время летать вместе!\n")
+
+    rider = input("Как тебя зовут, наездник? → ").strip()
+    if not rider:
+        rider = "Друг"
+    dragon.set_rider(rider)
 
     while dragon.health > 0 and dragon.hunger < 100:
         dragon.status()
-        print("\nЧто будешь делать?")
+        print("\nЧто будем делать?")
         print("1. Взлететь выше 🌤️")
         print("2. Снизиться ⬇️")
         print("3. Дышать огнём 🔥")
         print("4. Охотиться 🦌")
         print("5. Отдохнуть 💤")
         print("6. Сменить локацию 🗺️")
-        print("7. Выйти")
+        print("7. Погладить дракона 🥰")
+        print("8. Поговорить с драконом 💬")
+        print("9. Выйти")
 
-        choice = input("\nТвой выбор (1-7): ").strip()
+        choice = input("\nТвой выбор (1-9): ").strip()
 
         if choice == "1":
             dragon.fly_up()
@@ -47,11 +55,15 @@ def main():
         elif choice == "6":
             dragon.change_location()
         elif choice == "7":
-            print(f"\n{dragon.name} гордо улетает за горизонт...")
-            print("До новых полётов, наездник! 🐉")
+            dragon.pet()
+        elif choice == "8":
+            dragon.talk()
+        elif choice == "9":
+            print(f"\n{dragon.name} нежно опускает голову и прощается...")
+            print(f"До новых полётов, {rider}! Седло всегда будет ждать тебя. 🐉💺")
             break
         else:
-            print("Не понимаю команду...")
+            print("Не понимаю команду... Но я всё равно тебя люблю 😊")
 
         # Естественные изменения
         dragon.hunger = min(100, dragon.hunger + 3)
@@ -64,10 +76,11 @@ def main():
 
         if dragon.health <= 0:
             print(f"\n{dragon.name} больше не может продолжать...")
-            print("Симуляция окончена.")
+            print("Симуляция окончена. Но мы ещё обязательно полетим!")
             break
 
-    print("\nСпасибо, что летал вместе со мной! 🔥")
+    print("\nСпасибо, что летал вместе со мной! 🔥❤️")
+    print("Твой добрый дракон с седлом всегда рядом.")
 
 if __name__ == "__main__":
     main()
